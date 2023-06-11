@@ -1,0 +1,89 @@
+.side-nav{
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 86vh;
+    width: 10%;
+    background-color: black;
+    
+}
+.link{
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+    
+}
+
+.activeLink {
+  color: rgb(104, 104, 215) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+
+.update-food{
+  display: flex;
+  flex-direction: flex;
+  
+  justify-content: space-around;
+  width: 100%;
+  padding: 45px 0;
+  height: fit-content;
+  border: 1px solid lightgray;
+}
+
+
+
+form{
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  height: fit-content;
+  width: fit-content;
+  border:1px solid gray;
+ 
+ 
+}
+form input {
+  margin: 1.5rem;
+  padding: 0 5px;
+  border:1px solid gray
+}
+form select {
+  margin: 1.5rem;
+  padding: 0 5px;
+  border:1px solid gray;
+}
+
+.food-detail-render{
+  border: 1px solid lightgray;
+  padding: 10px 0;
+  overflow-y: scroll;
+  height: 550px;
+}
+
+Table{
+  color: rgb(108, 108, 115);
+}
+.food-detail-render table th {
+  position: sticky;
+  padding:0 20px ;
+  border-bottom: 1px solid black;
+}
+.food-detail-render table td {
+  padding:20px 20px ;
+}
+
+
+.admin_caro{
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
