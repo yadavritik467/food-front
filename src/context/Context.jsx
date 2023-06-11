@@ -33,7 +33,13 @@ const Context = ({ children }) => {
      // this is right code uncomment after success
  
     
-       let data2 = await axios.get("https://food-backend-amber.vercel.app/items/foods",);
+       let data2 = await axios.get("https://food-backend-amber.vercel.app/items/foods",{
+        headers: [
+            { "Access-Control-Allow-Origin": '*' },
+            { "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept '},
+            { "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, DELETE" },
+          ]
+      });
        const  data   = data2.data.food;
       //  console.log(data2);
  
