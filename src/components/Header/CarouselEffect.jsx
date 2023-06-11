@@ -8,7 +8,7 @@ function CarouselEffect({ dark }) {
   const [caro, setCaro] = useState([]);
 
   const getAllCarousel = async () => {
-    const { data } = await axios.get("/caro/caro-get");
+    const { data } = await axios.get("https://food-backend-amber.vercel.app/caro/caro-get");
     if (data) {
       setCaro(data.caro);
     }

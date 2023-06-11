@@ -20,7 +20,7 @@ function SignUp({ dark, setDark }) {
   const handleSignUp = async (e) => {
     e.preventDefault();
     
-     const {data}=  await axios.post("/auth/register", {
+     const {data}=  await axios.post("https://food-backend-amber.vercel.app/auth/register", {
         name,
         number,
         email,

@@ -30,7 +30,7 @@ function Login({ dark  }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/auth/login", {
+      const response = await axios.post("https://food-backend-amber.vercel.app/auth/login", {
         email,
         password,
       });

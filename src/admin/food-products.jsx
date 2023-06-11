@@ -64,7 +64,7 @@ const FoodProducts = ({ dark }) => {
 
   const getAllFoods = async () => {
     try {
-      const { data } = await axios.get("/items/foods");
+      const { data } = await axios.get("https://food-backend-amber.vercel.app/items/foods");
       if (data) {
         setFoods(data.food);
         console.log(data);
@@ -85,7 +85,7 @@ const FoodProducts = ({ dark }) => {
     e.preventDefault();
     try {
       let { data } = await axios.post(
-        "/items/create-foods",
+        "https://food-backend-amber.vercel.app/items/create-foods",
         {
           title: items.title,
           price: items.price,
@@ -113,7 +113,7 @@ const FoodProducts = ({ dark }) => {
 
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(`/items/delete-foods/${id}`);
+      const { data } = await axios.delete(`https://food-backend-amber.vercel.app/items/delete-foods/${id}`);
       if (data) {
         toast.success(data.message);
         getAllFoods();
@@ -133,7 +133,7 @@ const FoodProducts = ({ dark }) => {
   const [caro, setCaro] = useState([]);
 
   const getAllCarousel = async (req, res) => {
-    const { data } = await axios.get("/caro/caro-get");
+    const { data } = await axios.get("https://food-backend-amber.vercel.app/caro/caro-get");
     if (data) {
       setCaro(data.caro);
     }
@@ -149,7 +149,7 @@ const FoodProducts = ({ dark }) => {
   const carouselHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/caro/caro-update", {
+      const { data } = await axios.post("https://food-backend-amber.vercel.app/caro/caro-update", {
         title: items.title,
         heading: items.title,
         image,
@@ -171,7 +171,7 @@ const FoodProducts = ({ dark }) => {
 
   const caroDelete = async (id) => {
     try {
-      const { data } = await axios.delete(`/caro/caro-delete/${id}`);
+      const { data } = await axios.delete(`https://food-backend-amber.vercel.app/caro/caro-delete/${id}`);
       if (data) {
         toast.success(data.message);
         getAllCarousel();

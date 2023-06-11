@@ -41,7 +41,7 @@ function Cart() {
       currency: "INR",
       name: data.name,
       order_id: data._id,
-      callback_url: "/payment/paymentVarification",
+      callback_url: "https://food-backend-amber.vercel.app/payment/paymentVarification",
       handler: function (response) {
         dispatch({
           type: "CLEAR_ALL",
@@ -64,7 +64,7 @@ function Cart() {
 
   const orderHandler = async (amount) => {
     // const {data:{key}} = await axios.get("/payment/getKey");
-    const { data } = await axios.post("/payment/payment", { amount: amount });
+    const { data } = await axios.post("https://food-backend-amber.vercel.app/payment/payment", { amount: amount });
     console.log(data);
     initPayment(data.data);
   };

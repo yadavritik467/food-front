@@ -33,9 +33,9 @@ const Context = ({ children }) => {
      // this is right code uncomment after success
  
     
-       let data2 = await axios.get("http://localhost:4500/items/foods");
+       let data2 = await axios.get("https://food-backend-amber.vercel.app/items/foods");
        const  data   = data2.data.food;
-       console.log(data2);
+      //  console.log(data2);
  
         // this is right code uncomment after succes
 

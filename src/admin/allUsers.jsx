@@ -12,7 +12,7 @@ const AllUsers = () => {
 
   const getAllCustomers = async () => {
     try {
-      const { data } = await axios.get("/auth/getUser");
+      const { data } = await axios.get("https://food-backend-amber.vercel.app/auth/getUser");
       if (data) {
         // console.log(data.user);
         setCustomers(data.user);
@@ -32,7 +32,7 @@ const AllUsers = () => {
   const handleDelete = async(id) => {
 
     try {
-      const { data } = await axios.delete(`/auth/delete-users?id=${id}`);
+      const { data } = await axios.delete(`https://food-backend-amber.vercel.app/auth/delete-users?id=${id}`);
  
       if(data){
        toast.success(data.message)
