@@ -23,16 +23,29 @@ const Context = ({ children }) => {
     searchQuery: "",
   });
 
-  const fetch_food = async () => {
-    // this is right code uncomment after success
+   const fetch_food = async () => {
 
-    let data2 = await axios.get(
-      "http://localhost:4500/items/foods"
-    );
-    const data = data2.data.food;
-    //  console.log(data2);
+     
+     
 
-    setLoad(false);
+     // this is right code uncomment after success
+ 
+    
+       let data2 = await axios.get("https://food-backend-amber.vercel.app/items/foods",{
+        headers: [
+            { "Access-Control-Allow-Origin": '*' },
+            { "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept '},
+            { "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, DELETE" },
+          ]
+      });
+       const  data   = data2.data.food;
+      //  console.log(data2);
+ 
+        // this is right code uncomment after succes
+
+      // const { data } = await axios.get("https://food-store-8aad8-default-rtdb.firebaseio.com/Food.json");
+      
+      setLoad(false);
 
     dispatch({
       type: "ADD_FOOD",
