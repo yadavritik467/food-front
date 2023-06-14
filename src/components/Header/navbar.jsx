@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { toast } from "react-hot-toast";
 import { BsFillCartCheckFill } from "react-icons/bs";
@@ -16,7 +16,7 @@ import { Link, useNavigate,  } from "react-router-dom";
 import { CartState } from "../../context/Context";
 import { useAuth } from "../../context/auth";
 
-const Navbar = ({ dark, setDark }) => {
+const Navbar = ({ dark, setDark ,toggleDarkMode }) => {
   const [auth, setAuth] = useAuth();
   let {
     state: { Cart },
@@ -24,6 +24,10 @@ const Navbar = ({ dark, setDark }) => {
   } = CartState();
 
   // console.log(Cart.length)
+
+  
+  // Function to toggle dark mode
+  
 
 const navigate = useNavigate()
 
@@ -62,7 +66,7 @@ const navigate = useNavigate()
                 cursor: "pointer",
               }}
               className=""
-              onClick={() => setDark(true)&toast.success("Hello Darkness !!")}
+              onClick={toggleDarkMode }
             />
           ) : (
             <BsSun
@@ -73,7 +77,7 @@ const navigate = useNavigate()
                 cursor: "pointer",
                 color: "black",
               }}
-              onClick={() => setDark(false)}
+              onClick={toggleDarkMode}
             />
           )}
         </div>

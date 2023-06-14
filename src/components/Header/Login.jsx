@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useAuth } from "../../context/auth";
@@ -10,31 +10,38 @@ import "./NavbarCo.css";
 // import Loader from "../UI/Loader";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-
-function Login({ dark  }) {
+function Login({ dark }) {
   const [auth, setAuth] = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
 
   const navigate = useNavigate();
   const location = useLocation();
-  
- 
+
+  //----------------------------------------------------------------------------------  google auth
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:4500/auth/google";
+  };
 
   const onLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://food-backend-amber.vercel.app/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://food-backend-lime.vercel.app/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
       setAuth({
         ...auth,
         user: response.data.user,
         token: response.data.token,
       });
+
       localStorage.setItem("userID", JSON.stringify(response.data));
       navigate(location.state || "/");
       toast.success("Login succesfully");
@@ -78,7 +85,7 @@ function Login({ dark  }) {
           Login
         </Button>
         <br />
-        
+        <Link onClick={handleGoogleLogin}>Login with Google</Link>
         <p>
           if you Don't have any accout.
           <Link to={"/signUp"}>Sign Up</Link>

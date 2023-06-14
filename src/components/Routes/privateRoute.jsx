@@ -11,9 +11,9 @@ const Private = () => {
 
     useEffect(() => {
       const authCheck = async()=>{
-        const res = await axios.get("https://food-backend-amber.vercel.app/auth/user-auth", {
+        const res = await axios.get("https://food-backend-lime.vercel.app/auth/user-auth", {
             headers:{
-                "Authorization":auth?.token
+                "Authorization":auth.token
             }
         })
         if(res.data.ok){

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import "../Header/NavbarCo.css";
 import { CartState } from "../../context/Context";
 import axios from "axios";
@@ -41,13 +41,25 @@ function Cart() {
       currency: "INR",
       name: data.name,
       order_id: data._id,
-      callback_url: "https://food-backend-amber.vercel.app/payment/paymentVarification",
-      handler: function (response) {
+      callback_url: "https://food-backend-lime.vercel.app/payment/paymentVarification",
+      handler: async function ({response, amount}) {
+
+         await axios.post("http://localhost:4500/order/order/new",{amount:amount},{
+          headers:{
+            "Authorization":JSON.parse(localStorage.getItem("userID")).token
+        }
+        
+        })
+          
         dispatch({
           type: "CLEAR_ALL",
         });
         navigate("/user/paymentSuccess");
-        console.log(response);
+        // console.log(response);
+       
+       
+        
+          // console.log(data.data)
       },
 
       notes: {
@@ -64,7 +76,7 @@ function Cart() {
 
   const orderHandler = async (amount) => {
     // const {data:{key}} = await axios.get("/payment/getKey");
-    const { data } = await axios.post("https://food-backend-amber.vercel.app/payment/payment", { amount: amount });
+    const { data } = await axios.post("https://food-backend-lime.vercel.app/payment/payment", { amount: amount });
     console.log(data);
     initPayment(data.data);
   };
@@ -73,7 +85,7 @@ function Cart() {
     <>
       <div className="checkout-modal">
         <h2>Checkout Modal</h2> <br />
-        {/* <Link style={{marginLeft:"auto",textDecoration:"auto"}} to={"/user/myOrder"}>My order</Link> */}
+        <Link style={{marginLeft:"auto",marginRight:"2rem",textDecoration:"auto", fontSize:"20px"}} to={"/user/myOrder"}>My order</Link>
         <div className="cart_container">
           {Cart.length > 0 ? (
             Cart.map((data) => {
