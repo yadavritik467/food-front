@@ -71,13 +71,13 @@ const AdminChart = () => {
     },
   };
   return (
-    <div style={{ display: "flex" }}>
-      <SideNav />
-      <div style={{ display: "flex",  flexDirection:"column",overflowY:"scroll", height:"85vh",width:"100%", scrollbarGutter:"stable",padding:"30px" }}>
+    // <div style={{ display: "flex" }}>
+    //   <SideNav />
+      <div id="chart" style={{ display: "flex",borderTop:"1px solid black",  flexDirection:"column",overflowY:"scroll", height: "100%",width:"100%", scrollbarGutter:"stable",padding:"30px" }}>
       <Bar style={{height:"80vh",width:"100%", margin:"auto"}}  data={sale_data} options={options} /> <br />
       <Doughnut style={{height:"80vh",width:"100%", margin:"auto"}}  data={Food_data}  options={options} />
       </div>
-    </div>
+    // </div>
   );
 };
 

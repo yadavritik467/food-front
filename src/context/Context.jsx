@@ -10,7 +10,7 @@ import { searchReducer } from "./Reducer";
 const Cart = createContext();
 
 const Context = ({ children }) => {
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
   const [state, dispatch] = useReducer(cartReducer, {
     Food: [],
     // Cart:  [],
@@ -30,20 +30,12 @@ const Context = ({ children }) => {
 
      // this is right code uncomment after success
  
-    
-       let data2 = await axios.get("https://food-backend-amber.vercel.app/items/foods",{
-        headers: [
-            { "Access-Control-Allow-Origin": '*' },
-            { "Access-Control-Allow-Headers": 'Origin, X-Requested-With, Content-Type, Accept '},
-            { "Access-Control-Allow-Methods": "POST, GET, PUT, OPTIONS, DELETE" },
-          ]
-      });
+     setLoad(true);
+
+       let data2 = await axios.get("https://food-backend-zeta.vercel.app/items/foods");
        const  data   = data2.data.food;
       //  console.log(data2);
- 
-        // this is right code uncomment after succes
 
-      // const { data } = await axios.get("https://food-store-8aad8-default-rtdb.firebaseio.com/Food.json");
       
       setLoad(false);
 

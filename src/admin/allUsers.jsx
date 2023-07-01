@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Table } from "react-bootstrap";
-import SideNav from "./side-nav";
+// import SideNav from "./side-nav";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useAuth } from "../context/auth";
 
+// import Loader from "../components/UI/Loader";
+
 const AllUsers = () => {
+  const[load,setLoad] = useState(false)
   const [auth ] = useAuth();
   const [customers, setCustomers] = useState([]);
 
   const getAllCustomers = async () => {
     try {
-      const { data } = await axios.get("https://food-backend-lime.vercel.app/auth/getUser");
+      setLoad(true);
+      const { data } = await axios.get("https://food-backend-zeta.vercel.app/auth/getUser");
+      setLoad(false);
       if (data) {
         // console.log(data.user);
         setCustomers(data.user);
@@ -21,6 +26,7 @@ const AllUsers = () => {
     } catch (error) {
       console.log(error);
       toast.error("something went wrong");
+      setLoad(false)
     }
   };
   useEffect(() => {
@@ -32,8 +38,9 @@ const AllUsers = () => {
   const handleDelete = async(id) => {
 
     try {
-      const { data } = await axios.delete(`https://food-backend-lime.vercel.app/auth/delete-users?id=${id}`);
- 
+      setLoad(true);
+      const { data } = await axios.delete(`https://food-backend-zeta.vercel.app/auth/delete-users?id=${id}`);
+      setLoad(false);
       if(data){
        toast.success(data.message)
       }
@@ -42,15 +49,17 @@ const AllUsers = () => {
     } catch (error) {
       console.log(error);
      toast.error("something went wrong in deleting user");
+     setLoad(false)
     }
   };
 
   return (
-    <>
-      <div style={{ display: "flex" }}>
-        <SideNav />
+    <  >
+    {/* {load && <Loader/>} */}
+      <div id="user" style={{borderTop:"1px solid black", overflowX:"scroll"}} >
+        {/* <SideNav /> */}
 
-        {auth.user.role === "admin" && (<div className="" style={{ width: "100%", height:"85vh", overflowY:"scroll", padding: "0 25px" }}>
+        {auth.user.role === "admin" && (<div  className="" style={{ width: "100%", height:"86vh", overflowY:"scroll", padding: "0 25px" }}>
           <Table style={{color: "rgb(108, 108, 115)"}}>
             <thead>
               <tr>
@@ -58,7 +67,7 @@ const AllUsers = () => {
                 <th>Name</th>
                 <th>Number</th>
                 <th>Email</th>
-                <th>Password</th>
+                {/* <th>Password</th> */}
                 <th>Address</th>
                 <th>Role</th>
               </tr>
@@ -71,7 +80,7 @@ const AllUsers = () => {
                     <td >{c.name}</td>
                     <td >{c.number}</td>
                     <td >{c.email}</td>
-                    <td >{c.password}</td>
+                    {/* <td >{c.password}</td> */}
                     <td >{c.address}</td>
                     <td >{c.role}</td>
                     <td >

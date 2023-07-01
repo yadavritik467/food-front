@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../App.css";
 
 import { CartState } from "../../context/Context";
@@ -10,26 +10,19 @@ function SearchAllFood({dark, setDark}) {
     searchState: { searchQuery },
   
   } = CartState();
-
-  // const [load, setLoad] = useState(true);
-
-
-
-
  
-
-  
 
   const transformFood = () => { 
     let sortedFood = Food;
-    if (searchQuery) {
-      sortedFood = sortedFood.filter((data) => {
-        return data.title.toLowerCase().includes(searchQuery);
-      });
-    }
-    return sortedFood;
+    let query = searchQuery.toLowerCase();
+    const results = sortedFood.filter(item => {
+      const lowercaseItem = item.title.toLowerCase();
+      return lowercaseItem.includes(query) || item.title.includes(query);
+    });
+    
+    return results;
   };
-  // console.log(searchQuery);
+  console.log(transformFood.length);
   return (
     <div id="search">
 
@@ -51,50 +44,7 @@ function SearchAllFood({dark, setDark}) {
                     </div>
                   );
               })}
-              {/* {transformFood().map((item) => {
-                if (item.category === "Egg")
-                  return (
-                    <div
-                      className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2 mb-2 p-2"
-                      key={item._id}
-                    >
-                      <Foods data={item} dark={dark} setDark={setDark} />
-                    </div>
-                  );
-              })}
-              {transformFood().map((item) => {
-                if (item.category === "Fish")
-                  return (
-                    <div
-                      className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2 mb-2 p-2"
-                      key={item._id}
-                    >
-                      <Foods data={item} dark={dark} setDark={setDark} />
-                    </div>
-                  );
-              })}
-              {transformFood().map((item) => {
-                if (item.category === "SeaFood")
-                  return (
-                    <div
-                      className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2 mb-2 p-2"
-                      key={item._id}
-                    >
-                      <Foods data={item} dark={dark} setDark={setDark} />
-                    </div>
-                  );
-              })}
-               {transformFood().map((item) => {
-                if (item.category === "Mutton")
-                  return (
-                    <div
-                      className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-2 mb-2 p-2"
-                      key={item._id}
-                    >
-                      <Foods data={item} dark={dark} setDark={setDark} />
-                    </div>
-                  );
-              })} */}
+             
             </div>
           </div>
         </div>

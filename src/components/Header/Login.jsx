@@ -1,57 +1,76 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
-
 import axios from "axios";
-
 import "./NavbarCo.css";
-// import Loader from "../UI/Loader";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import LoginLoader from "../UI/loginLoader";
+import { FcGoogle } from "react-icons/fc";
+import ReactGA from 'react-ga';
 
 function Login({ dark }) {
   const [auth, setAuth] = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [load, setLoad] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   //----------------------------------------------------------------------------------  google auth
+  // though it's wroking but still needs to be worked on 
 
-  const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:4500/auth/google";
-  };
+  // const handleGoogleLogin = () => {
+  //   setLoad(true)
+  //     window.location.href = "https://food-backend-zeta.vercel.app/auth/google";
+   
+  //   setLoad(false)
+  // };
 
   const onLogin = async (e) => {
     e.preventDefault();
 
     try {
+      ReactGA.event({
+        category: 'User Login',
+        action: 'Login',
+        label: 'Login',
+      });
+      setLoad(true)
       const response = await axios.post(
-        "https://food-backend-lime.vercel.app/auth/login",
+        "https://food-backend-zeta.vercel.app/auth/login",
         {
           email,
           password,
         }
       );
-
+      
       setAuth({
         ...auth,
         user: response.data.user,
         token: response.data.token,
       });
+    
 
       localStorage.setItem("userID", JSON.stringify(response.data));
       navigate(location.state || "/");
       toast.success("Login succesfully");
+      setLoad(false)
     } catch (error) {
       console.log(error);
-      toast.error("user not found !!!");
-      navigate("/signUp");
+      toast.error(" invalid email or password !!!");
+      setLoad(false)
+      setTimeout(()=>{
+       navigate("/signUp");
+      },1500)
+     
     }
   };
   return (
+    <>
+   
+    
+   
     <div
       className={`modal_background ${
         !dark ? " modal_background " : "modal_background_1 "
@@ -79,19 +98,21 @@ function Login({ dark }) {
           placeholder=" Enter your Password"
         />{" "}
         <br />
-        <Link to={"/forgot_password"}>Forgot password</Link>
+        <Link to={"/Login/forgot_password"}>Forgot password</Link>
         <br />
-        <Button className="btn_login" type="submit">
-          Login
-        </Button>
+       
+        <button style={{padding:"5px 15px"}} type="submit">  {load ? <LoginLoader /> :   "Login"}
+        
+        </button>
         <br />
-        <Link onClick={handleGoogleLogin}>Login with Google</Link>
+        {/* <button onClick={handleGoogleLogin}>Login with Google <FcGoogle style={{justifyContent:"center", fontSize:"25px", cursor:"pointer",  }} /></button><br /> */}
         <p>
           if you Don't have any accout.
           <Link to={"/signUp"}>Sign Up</Link>
         </p>
       </Form>
     </div>
+    </>
   );
 }
 

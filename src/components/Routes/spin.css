@@ -6,16 +6,26 @@
 }
 
 
-.nfp{
+.nfp{position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     place-items: center;
     align-items: center;
     text-align: center;
-    width: auto;
-    padding: 10rem;
+    width: 100%;
+    padding: 15rem;
+    /* background-image: url("../../../public/Depressed\ Chicken\ Download\ Picture｜Charatoon\ -\ Brave\ 18-06-2023\ 15_09_02.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    
 }
+
 .nfp p{
-    font-size: 50px;
+    position: absolute;
+    font-size: 30px;
+    margin-top: 0;
+    
+   
 }

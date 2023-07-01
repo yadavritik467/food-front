@@ -3,12 +3,15 @@ import "../Header/CaroEffect.css";
 import Carousel from "react-bootstrap/Carousel";
 
 import axios from "axios";
+import { Fade } from 'react-reveal';
 
 function CarouselEffect({ dark }) {
   const [caro, setCaro] = useState([]);
-
+//  const[load,setLoad] = useState(false)
   const getAllCarousel = async () => {
-    const { data } = await axios.get("https://food-backend-lime.vercel.app/caro/caro-get");
+    // setLoad(true);
+    const { data } = await axios.get("https://food-backend-zeta.vercel.app/caro/caro-get");
+    // setLoad(false);
     if (data) {
       setCaro(data.caro);
     }
@@ -19,12 +22,14 @@ function CarouselEffect({ dark }) {
     getAllCarousel();
   }, []);
   return (
-    <div className="">
+    <>
+    
       <Carousel className={`carouse ${!dark ? "carousel" : "carousel_1"}`}>
         {caro.map((c) => {
           return (
             <Carousel.Item interval={1000} className=""  key={c._id}>
-              <img className="img" src={c.image.URL} alt="First slide" />
+
+          <Fade>    <img className="img" src={c.image.URL} alt="First slide" /></Fade>
               <Carousel.Caption className="caption1">
                 <h3>{c.heading}</h3>
                 <p>
@@ -34,8 +39,8 @@ function CarouselEffect({ dark }) {
             </Carousel.Item>
           );
         })}
-      </Carousel>
-    </div>
+      </Carousel> <br /> <br />
+      </>
   );
 }
 

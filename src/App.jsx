@@ -12,40 +12,50 @@ import Footer from "./components/Footer/Footer";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import FoodProducts from "./admin/food-products";
-// import Forgot_password from "./components/Header/forgot_password";
+import Forgot_password from "./components/Header/forgot_password";
 import PaymentSuccess from "./components/Header/paymentSuccess";
 import Private from "./components/Routes/privateRoute";
 import NotFound from "./components/Routes/notFound";
-import AllUsers from "./admin/allUsers";
-import AdminChart from "./admin/chart";
-import Payments from "./admin/payments";
+// import AllUsers from "./admin/allUsers";
+// import AdminChart from "./admin/chart";
+// import Payments from "./admin/payments";
 import Dashboard from "./admin/dashboard";
 import MayOrder from "./components/Header/mayOrder";
 import SearchAllFood from "./components/Header/searchAllFood";
 import { useAuth } from "./context/auth";
+import TotalOrder from "./admin/adminOrder/totalOrder";
+import OnlineOrder from "./admin/adminOrder/onlineOrder";
+import OfflineOrder from "./admin/adminOrder/offlineOrder";
+import CancelOrder from "./admin/adminOrder/cancelOrder";
+import DelieverOrder from "./admin/adminOrder/delieverOrder";
+import { initGA } from './utils/anlytics';
 
 function App({ state }) {
-  const [dark, setDark] = useState( false);
+  const [dark, setDark] = useState(false);
   const [auth] = useAuth();
 
-
-
+  useEffect(() => {
+    // Initialize Google Analytics
+    initGA('G-8Y87L42BT7');
+  }, []);
   //------------------------------------------------------------------------  dakr mode here
   const toggleDarkMode = () => {
     const updatedDarkMode = !dark;
     setDark(updatedDarkMode);
-    localStorage.setItem('darkMode', JSON.stringify(updatedDarkMode));
+    localStorage.setItem("darkMode", JSON.stringify(updatedDarkMode));
   };
 
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode');
+    const savedDarkMode = localStorage.getItem("darkMode");
     if (savedDarkMode) {
       setDark(JSON.parse(savedDarkMode));
     }
   }, []);
 
-   //------------------------------------------------------------------------  dakr mode ends here
-  
+  //------------------------------------------------------------------------  dakr mode ends here
+
+  // window.addEventListener("contextmenu", (e) => e.preventDefault())    //---------- " this event listener is for preventing inspection of right click in browser "  uncomment it later after completeing this project..
+
   return (
     <>
       <Router>
@@ -58,13 +68,14 @@ function App({ state }) {
           <Toaster />
 
           <Routes>
+          
             {/* -----------------For client-----------------------   */}
             <Route path="/" element={<Home state={state} dark={dark} />} />
 
             <Route path="/searchFood" element={<SearchAllFood dark={dark} />} />
-            {/* <Route path="/Login/forgot_password" element={<Forgot_password  dark={dark}/>} /> */}
             <Route path="/Login" element={<Login dark={dark} />} />
             <Route path="/signUp" element={<SignUp dark={dark} />} />
+            <Route path="/Login/forgot_password" element={<Forgot_password  dark={dark}/>} />
 
             <Route path="/" element={<Private />}>
               {/* -----------------For admin-----------------------   */}
@@ -79,30 +90,37 @@ function App({ state }) {
                         element={<Dashboard dark={dark} />}
                       />
                       <Route
-                        path="/admin-users"
-                        element={<AllUsers dark={dark} />}
+                        path="/admin-dashboard/order"
+                        element={<TotalOrder dark={dark} />}
                       />
                       <Route
-                        path="/admin-products"
-                        element={<FoodProducts dark={dark} />}
+                        path="/admin-dashboard/onlineOrder"
+                        element={<OnlineOrder dark={dark} />}
                       />
                       <Route
-                        path="/admin-chart"
-                        element={<AdminChart dark={dark} />}
+                        path="/admin-dashboard/offlineOrder"
+                        element={<OfflineOrder dark={dark} />}
                       />
                       <Route
-                        path="/admin-payment"
-                        element={<Payments dark={dark} />}
+                        path="/admin-dashboard/cancelOrder"
+                        element={<CancelOrder dark={dark} />}
+                      />
+                      <Route
+                        path="/admin-dashboard/delieverOrder"
+                        element={<DelieverOrder dark={dark} />}
                       />
                     </>
                   )}
+                  <Route
+                    path="/user/paymentSuccess"
+                    element={<PaymentSuccess />}
+                  />
+                  <Route path="/user/myOrder" element={<MayOrder />} />
                 </>
               )}
-
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/user/paymentSuccess" element={<PaymentSuccess />} />
-              <Route path="/user/myOrder" element={<MayOrder />} />
             </Route>
+
+            <Route path="/cart" element={<Cart />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import {  Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Header/NavbarCo.css";
 import { CartState } from "../../context/Context";
 import axios from "axios";
-import  toast  from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useAuth } from "../../context/auth";
+import PaymentLoader from "../UI/paymentLoad";
+import { Reveal } from "react-reveal";
 
 function Cart() {
- 
+  const [load, setLoad] = useState(false);
+  const [cashLoad, setCashLoad] = useState(false);
+  const [onlinePayment] = useState("Online");
+  const [CODPayment] = useState("COD");
+  const [CODPaymentStatus] = useState("unpaid");
+  const [onlinePaymentStatus] = useState("paid");
+  const [showModal, setShowModal] = useState(false);
+  const [auth] = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -35,31 +45,40 @@ function Cart() {
   // payment is working succesfully
 
   const initPayment = (data) => {
+    let orderDetail = {};
+    orderDetail.FoodID = Cart;
+    orderDetail.PaymentMethod = onlinePayment;
+    orderDetail.paymentInfo = onlinePaymentStatus
+    // orderDetail.totalPrice = data.amount;
+    orderDetail.user = auth.user;
+    orderDetail.userID = auth.user._id;
+
     const options = {
       key: "rzp_test_cfpXwdEBSA6tMg",
-      amount: data.amount,
+      amount: data.amount ,
+      // paid:data.amount_paid,
       currency: "INR",
-      name: data.name,
+      name: data.title,
       order_id: data._id,
-      callback_url: "https://food-backend-lime.vercel.app/payment/paymentVarification",
-      handler: async function ({response, amount}) {
+      callback_url:"https://food-backend-zeta.vercel.app/payment/paymentVarification",
+      handler: async function (response) {
+        await axios.post(
+          "https://food-backend-zeta.vercel.app/order/order/new",
+          { orderDetail,amount:amount },
+          {
+            headers: {
+              Authorization: JSON.parse(localStorage.getItem("userID")).token,
+            },
+          }
+        );
 
-         await axios.post("http://localhost:4500/order/order/new",{amount:amount},{
-          headers:{
-            "Authorization":JSON.parse(localStorage.getItem("userID")).token
-        }
-        
-        })
-          
         dispatch({
           type: "CLEAR_ALL",
         });
         navigate("/user/paymentSuccess");
         // console.log(response);
-       
-       
-        
-          // console.log(data.data)
+
+        // console.log(data.data)
       },
 
       notes: {
@@ -75,17 +94,60 @@ function Cart() {
   };
 
   const orderHandler = async (amount) => {
-    // const {data:{key}} = await axios.get("/payment/getKey");
-    const { data } = await axios.post("https://food-backend-lime.vercel.app/payment/payment", { amount: amount });
-    console.log(data);
+    setLoad(true);
+    const { data } = await axios.post("https://food-backend-zeta.vercel.app/payment/payment",
+      { amount: amount },
+        
+    );
+    setShowModal(false);
+    // console.log(data);
     initPayment(data.data);
+    setLoad(false);
+    setCashLoad(false);
+  };
+
+  const CashHandler = async (amount) => {
+    setCashLoad(true);
+
+    let orderDetail = {};
+    orderDetail.FoodID = Cart;
+    orderDetail.PaymentMethod = CODPayment
+    orderDetail.paymentInfo = CODPaymentStatus
+    // orderDetail.totalPrice = amount;
+    orderDetail.user = auth.user;
+    orderDetail.userID = auth.user._id;
+    // setCashLoad(true);
+    await axios.post(
+      "https://food-backend-zeta.vercel.app/order/order/new",
+      { orderDetail,amount:amount },
+      {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("userID")).token,
+        }
+      }
+    );
+    setCashLoad(false);
+    dispatch({
+      type: "CLEAR_ALL",
+    });
+    navigate("/user/paymentSuccess");
   };
 
   return (
     <>
       <div className="checkout-modal">
         <h2>Checkout Modal</h2> <br />
-        <Link style={{marginLeft:"auto",marginRight:"2rem",textDecoration:"auto", fontSize:"20px"}} to={"/user/myOrder"}>My order</Link>
+        <Link
+          style={{
+            marginLeft: "auto",
+            marginRight: "2rem",
+            textDecoration: "auto",
+            fontSize: "20px",
+          }}
+          to={"/user/myOrder"}
+        >
+          My order
+        </Link>
         <div className="cart_container">
           {Cart.length > 0 ? (
             Cart.map((data) => {
@@ -123,8 +185,7 @@ function Cart() {
                             payload: {
                               _id: data._id,
                             },
-                          })
-                          & toast.success("Remove from cart")
+                          }) & toast.success("Remove from cart")
                         }
                       >
                         <RiDeleteBin5Line />{" "}
@@ -139,29 +200,67 @@ function Cart() {
           )}
         </div>
         <hr />
-        <div className="total_amount">
-          <div>
-            <h4>Total Items: {Cart.length} </h4>
-            <h4>Total Amount: {amount} INR </h4>
-          </div>
-
-          {Cart.length > 0 && (
+        {auth.user ? (
+          <div className="total_amount">
             <div>
-              <button
-                onClick={() =>
-                  dispatch({
-                    type: "CLEAR_ALL",
-                  })
-                  & toast.success("All cleared from cart")
-                }
-              >
-                Clear all{" "}
-              </button>
-
-              <button onClick={() => orderHandler(amount)}>Order Now</button>
+              <h4>Total Items: {Cart.length} </h4>
+              <h4>Total Amount: {amount}/- INR </h4>
+              <small>Charges for per order: {amount} + 20 = <b>{amount + 20}/- INR</b> </small>
             </div>
-          )}
-        </div>
+
+            {Cart.length > 0 && (
+              <div>
+                <button
+                  onClick={() =>
+                    dispatch({
+                      type: "CLEAR_ALL",
+                    }) & toast.success("All cleared from cart")
+                  }
+                >
+                  Clear all{" "}
+                </button>
+
+                <button onClick={() => setShowModal(true)}> Order Now</button>
+                {showModal && (
+                  <div className="payment-modal">
+                    <Reveal>
+                      <div className="payment-modal-content">
+                        <h2>
+                          Payment Method{" "}
+                          <button
+                            style={{
+                              margin: "2px",
+                              padding: "0px",
+                              backgroundColor: "transparent",
+                              color: "grey",
+                              fontSize: "25px",
+                            }}
+                            onClick={() => setShowModal(false)}
+                          >
+                            X
+                          </button>{" "}
+                        </h2>
+                        <button onClick={() => orderHandler(amount)}>
+                          {" "}
+                          {load ? <PaymentLoader /> : "online Bank/UPI"}{" "}
+                        </button>
+                        <p>Or</p>
+                        <button onClick={() => CashHandler(amount)}>
+                          {" "}
+                          {cashLoad ? <PaymentLoader /> : "Cash on delievery"}
+                        </button>
+                      </div>
+                    </Reveal>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <p style={{ margin: "auto", padding: "2rem", fontSize: "1.5rem" }}>
+            please login to order
+          </p>
+        )}
       </div>
     </>
   );

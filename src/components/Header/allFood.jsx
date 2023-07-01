@@ -7,11 +7,10 @@ import Foods from "./foods";
 function AllFood({  foodType, dark, setDark }) {
   const {
     state: { Food },
-    searchState: { searchQuery },
-    searchDispatch,
+  
   } = CartState();
 
-  const [load, setLoad] = useState(true);
+ 
   
   return (
     <div id="search">

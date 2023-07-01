@@ -25,6 +25,29 @@
     animation: spin .5s linear infinite;
    
 }
+.loader-1 {
+    /* position: fixed; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+
+.inner-loader-1 {
+    /* position: absolute; */
+    
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    
+    border-bottom: 3px solid rgb(255, 255, 255);
+    animation: spin .5s linear infinite;
+   
+}
 
 
 @keyframes spin {
@@ -33,5 +56,28 @@
     } */
 	100%{ 
         transform: rotate(360deg);
+    }
+}
+
+
+@media screen and (max-width:500px) {
+    
+    .loader{
+        margin: 30px auto;
+    } 
+    
+    .loader p{
+       padding-top: 20px;
+     
+        font-size: 30px;
+    }
+    
+    .inner-loader {
+     
+        
+        width: 200px;
+        height: 200px;
+
+       
     }
 }

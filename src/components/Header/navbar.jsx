@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { toast } from "react-hot-toast";
 import { BsFillCartCheckFill } from "react-icons/bs";
@@ -7,16 +7,14 @@ import { GrLocation } from "react-icons/gr";
 import { MdDarkMode, MdDashboardCustomize } from "react-icons/md";
 import { BsSun } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
-
 import img1 from "./img/fish-market-2328964_1920.jpg";
-
 import "../Header/NavbarCo.css";
-
+import ReactGA from 'react-ga';
 import { Link, useNavigate,  } from "react-router-dom";
 import { CartState } from "../../context/Context";
 import { useAuth } from "../../context/auth";
 
-const Navbar = ({ dark, setDark ,toggleDarkMode }) => {
+const Navbar = ({ dark, toggleDarkMode }) => {
   const [auth, setAuth] = useAuth();
   let {
     state: { Cart },
@@ -32,12 +30,18 @@ const Navbar = ({ dark, setDark ,toggleDarkMode }) => {
 const navigate = useNavigate()
 
   const logOut = () => {
+    ReactGA.event({
+      category: 'User Logout',
+      action: 'Logout',
+      label: 'Logout',
+    });
     setAuth({
       ...auth,
       user: null,
       token: "",
     });
     localStorage.removeItem("userID");
+    // document.cookie = 'userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     toast.success("Logout Successfully");
     navigate("/")
   };

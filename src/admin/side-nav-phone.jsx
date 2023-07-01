@@ -8,7 +8,7 @@ import "./admin.css";
 import { useAuth } from "../context/auth";
 
 
-const SideNav = () => {
+const Side_nav_phone = () => {
   const [auth] = useAuth();
   
 
@@ -16,9 +16,12 @@ const SideNav = () => {
 
   return (
     <>
+    
       {/* {load && <Loader />} */}
       {auth.user.role === "admin" && (
-        <div className="side-nav">
+      <> 
+        <div className="side-nav-phone">
+        {/* <a  style={{float:"right",margin:"0 150px",position:"absolute"}}> side menu</a> */}
           <a style={{color:"white"}} href="#dashboard">
             <GoDashboard /> <br />
             Dashboard
@@ -39,10 +42,10 @@ const SideNav = () => {
             <FaUserFriends /> <br />
             Users
           </a>
-        </div>
+        </div> </>
       )}
     </>
   );
 };
 
-export default SideNav;
+export default Side_nav_phone;

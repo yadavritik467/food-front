@@ -1,5 +1,6 @@
 import React from 'react'
 import order from "./img/order-succes.jpg";
+import { Link } from 'react-router-dom';
 const PaymentSuccess = () => {
   return (
     <div className="order">
@@ -10,6 +11,7 @@ const PaymentSuccess = () => {
                 <br />
 
                 <h4>Order Successfully placed !!</h4>
+                <Link to={"/user/myOrder"}>Check your order list</Link>
                 <br />
 
                 {/* <span>Go to home fororder</span> */}
