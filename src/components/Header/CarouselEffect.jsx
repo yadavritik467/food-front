@@ -5,6 +5,9 @@ import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
 // import { Fade } from 'react-reveal';
 
+
+
+
 function CarouselEffect({ dark }) {
   const [caro, setCaro] = useState([]);
 //  const[load,setLoad] = useState(false)
@@ -29,9 +32,9 @@ function CarouselEffect({ dark }) {
           return (
             <Carousel.Item interval={1000} className=""  key={c._id}>
 
-          {/* <Fade>     */}
+       
             <img className="img" src={c.image.URL} alt="First slide" />
-            {/* </Fade> */}
+        
               <Carousel.Caption className="caption1">
                 <h3>{c.heading}</h3>
                 <p>
