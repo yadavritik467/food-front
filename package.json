@@ -12,7 +12,7 @@
     "gapi-script": "^1.2.0",
     "node": "^20.2.0",
     "razorpay": "^0.0.0",
-    "react": "^18.2.0",
+    "react": "^16.0.0",
     "react-bootstrap": "^2.8.0",
     "react-chartjs-2": "^5.2.0",
     "react-cookie": "^4.1.1",
