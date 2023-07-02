@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { CartState } from "../../context/Context";
-import { Reveal } from "react-reveal";
+// import { Reveal } from "react-reveal";
 
 const CancelOrder = () => {
 

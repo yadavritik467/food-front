@@ -7,7 +7,7 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import Loader from "../components/UI/Loader";
 import axios from "axios";
 import { CartState } from "../context/Context";
-import { Reveal } from "react-reveal";
+// import { Reveal } from "react-reveal";
 import LoginLoader from "../components/UI/loginLoader";
 
 const FoodProducts = ({ dark }) => {
@@ -516,7 +516,7 @@ const FoodProducts = ({ dark }) => {
                           </div>
                           {showModal && (
                             <div className="modal">
-                              <Reveal>
+                              {/* <Reveal> */}
                                 <div className="modal-content">
                                   <h2>Edit Item</h2>
                                   <form onSubmit={() => updateHandler(c._id)}>
@@ -570,7 +570,7 @@ const FoodProducts = ({ dark }) => {
                                     </div>
                                   </form>
                                 </div>
-                              </Reveal>
+                              {/* </Reveal> */}
                             </div>
                           )}
                         </div>

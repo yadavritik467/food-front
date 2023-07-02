@@ -7,7 +7,7 @@ import { CartState } from "../../context/Context";
 
 import "./Common.css";
 import toast from "react-hot-toast";
-import { Reveal } from 'react-reveal';
+// import { Reveal } from 'react-reveal';
 
 const Foods = ({ data, state, dark ,setDark }) => {
   const {
@@ -22,8 +22,9 @@ const Foods = ({ data, state, dark ,setDark }) => {
       <div className={`item-card ${!dark ? "item-card":"item-card_1"}`}>
         <div className="text-center">
 
-        <Reveal> 
-           <img className="img-fluid" src={data.image.url} alt={data.title} /></Reveal>
+        {/* <Reveal>  */}
+           <img className="img-fluid" src={data.image.url} alt={data.title} />
+           {/* </Reveal> */}
         </div>
 
         <div className="item-card-info">

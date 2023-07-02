@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { CartState } from "../../context/Context";
-import { Reveal } from "react-reveal";
+// import { Reveal } from "react-reveal";
 
 const OfflineOrder = () => {
 
@@ -160,7 +160,7 @@ const closeModal = () => {
                 </button>
                 {showModal && (
                             <div className="modal">
-                              <Reveal>
+                              {/* <Reveal> */}
                                 <div className="modal-content">
                                   <h3>Edit Order Details </h3>
                                   <div className="modal-content-form" >
@@ -201,7 +201,7 @@ const closeModal = () => {
                                     </div>
                                   </div>
                                 </div>
-                              </Reveal>
+                              {/* </Reveal> */}
                             </div>
                           )}
                

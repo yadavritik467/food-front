@@ -7,7 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
 import PaymentLoader from "../UI/paymentLoad";
-import { Reveal } from "react-reveal";
+// import { Reveal } from "react-reveal";
 
 function Cart() {
   const [load, setLoad] = useState(false);
@@ -235,7 +235,7 @@ function Cart() {
               <button onClick={() => setShowModal(true)}> Order Now</button>
               {showModal && (
                 <div className="payment-modal">
-                  <Reveal>
+                  {/* <Reveal> */}
                     <div className="payment-modal-content">
                       <h2>
                         Payment Method{" "}
@@ -262,7 +262,7 @@ function Cart() {
                         {cashLoad ? <PaymentLoader /> : "Cash on delievery"}
                       </button>
                     </div>
-                  </Reveal>
+                  {/* </Reveal> */}
                 </div>
               )}
             </div>
@@ -298,7 +298,7 @@ function Cart() {
           </div>
           {popUpModal && (
             <div className="modal">
-              <Reveal>
+              {/* <Reveal> */}
                 <div className="modal-content">
                   <div className="modal-content-form">
                     <p
@@ -323,7 +323,7 @@ function Cart() {
                     </div>
                   </div>
                 </div>
-              </Reveal>
+              {/* </Reveal> */}
             </div>
           )}
         </div>

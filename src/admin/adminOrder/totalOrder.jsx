@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { CartState } from "../../context/Context";
 import { AiTwotoneEdit } from "react-icons/ai";
-import { Reveal } from "react-reveal";
+// import { Reveal } from "react-reveal";
 
 const TotalOrder = () => {
 
@@ -158,7 +158,7 @@ const closeModal = () => {
                 </button>
                 {showModal && (
                             <div className="modal">
-                              <Reveal>
+                              {/* <Reveal> */}
                                 <div className="modal-content">
                                   <h3>Edit Order Details {m._id} </h3>
                                   <div className="modal-content-form" >
@@ -184,7 +184,7 @@ const closeModal = () => {
                                     </div>
                                   </div>
                                 </div>
-                              </Reveal>
+                              {/* </Reveal> */}
                             </div>
                           )}
                
