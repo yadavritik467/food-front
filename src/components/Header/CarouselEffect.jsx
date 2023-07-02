@@ -22,7 +22,7 @@ function CarouselEffect({ dark }) {
     getAllCarousel();
   }, []);
   return (
-    <>
+    <div>
     
       <Carousel className={`carouse ${!dark ? "carousel" : "carousel_1"}`}>
         {caro.map((c) => {
@@ -40,7 +40,7 @@ function CarouselEffect({ dark }) {
           );
         })}
       </Carousel> <br /> <br />
-      </>
+      </div>
   );
 }
 

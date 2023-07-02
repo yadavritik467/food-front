@@ -37,7 +37,7 @@ const Forgot_password = ({ dark }) => {
             {/* <Link to={"/login"} >login</Link> */}
           </p>
         ) : (
-          <>
+          <div>
             <h4>Reset password</h4> <br />
             <input
               type="email"
@@ -53,7 +53,7 @@ const Forgot_password = ({ dark }) => {
               {" "}
               {load ? <LoginLoader /> : "Send link"}
             </button>
-          </>
+          </div>
         )}
 
         <br />

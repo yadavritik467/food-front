@@ -85,16 +85,16 @@ const closeModal = () => {
         {myOrder.map((m)=>{
           return(
             <div key={m._id} >  
-            { (auth.token !== ""   && auth.user._id === m.userID) ?   <>  
+            { (auth.token !== ""   && auth.user._id === m.userID) ?   <div>  
             
             {(m.OrderStatus === "successfully cancel" || m.OrderStatus === "delievered" ) ? 
-           ( <>
+           ( <div>
              
                 <h3>{m.previousOrderStatus} -</h3>  
-            </>)
+            </div>)
             
             : 
-            ( <>
+            ( <div>
             <button onClick={()=>toast.error("delete your order after getting your item ")} style={{float:"right",margin:"0px 10px 10px 0"}} >delete</button>
             <button
                   onClick={() => openModal(m._id)}
@@ -133,7 +133,7 @@ const closeModal = () => {
                               </Reveal>
                             </div>
                           )} 
-            </>)
+            </div>)
             }
                <br /> <br /> <br /> <br />
               {m.user.map((u)=>{
@@ -171,7 +171,7 @@ const closeModal = () => {
             
             
            
-            </>:null } 
+            </div>:null } 
           </div>
         )
       })}

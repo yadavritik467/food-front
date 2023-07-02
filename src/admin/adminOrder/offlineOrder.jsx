@@ -110,7 +110,7 @@ const closeModal = () => {
 };
 
   return (
- <>
+ <div>
  <div style={{ height: "74vh", overflowY: "scroll",userSelect:"text" }}>
       {" "}
       <br />
@@ -140,11 +140,11 @@ const closeModal = () => {
       />{" "}
       <br /> <br /> <br />
       {/* {myOrder.length > 0 ? ( */}
-        <>
+        <div>
           {Order().map((m) => {
             return (  
                 <div key={m._id}>
-                  {m.PaymentMethod === "COD" && ( <>
+                  {m.PaymentMethod === "COD" && ( <div>
                     <br />
                  <button
                   onClick={() => deleteOrder(m._id)}
@@ -187,9 +187,8 @@ const closeModal = () => {
                                     >
                                       
                                       {status.map((status, idx) => (
-                                                <>
-                                                   <p>payment status:</p>  <option key={idx}>{status}</option>
-                                                </>
+                                                  <option key={idx}>{status}</option>
+                                               
                                       ))}
                                     </select>
 
@@ -286,16 +285,16 @@ const closeModal = () => {
                 })}
                
                 <br />
-                  </>)}
+                  </div>)}
                 
               </div>
             );
           })}
-        </>
+        </div>
      
     </div>
     
- </>
+ </div>
   );
 };
 

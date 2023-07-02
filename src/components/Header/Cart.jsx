@@ -40,10 +40,8 @@ function Cart() {
   // account modal
   const openModal = () => {
     setPopUpModal(true);
-    
-    
   };
-  
+
   const closeModal = () => {
     setPopUpModal(false);
   };
@@ -60,23 +58,24 @@ function Cart() {
     let orderDetail = {};
     orderDetail.FoodID = Cart;
     orderDetail.PaymentMethod = onlinePayment;
-    orderDetail.paymentInfo = onlinePaymentStatus
+    orderDetail.paymentInfo = onlinePaymentStatus;
     // orderDetail.totalPrice = data.amount;
     orderDetail.user = auth.user;
     orderDetail.userID = auth.user._id;
 
     const options = {
       key: "rzp_test_cfpXwdEBSA6tMg",
-      amount: data.amount ,
+      amount: data.amount,
       // paid:data.amount_paid,
       currency: "INR",
       name: data.title,
       order_id: data._id,
-      callback_url:"https://food-backend-zeta.vercel.app/payment/paymentVarification",
+      callback_url:
+        "https://food-backend-zeta.vercel.app/payment/paymentVarification",
       handler: async function (response) {
         await axios.post(
           "https://food-backend-zeta.vercel.app/order/order/new",
-          { orderDetail,amount:amount },
+          { orderDetail, amount: amount },
           {
             headers: {
               Authorization: JSON.parse(localStorage.getItem("userID")).token,
@@ -107,9 +106,9 @@ function Cart() {
 
   const orderHandler = async (amount) => {
     setLoad(true);
-    const { data } = await axios.post("https://food-backend-zeta.vercel.app/payment/payment",
-      { amount: amount },
-        
+    const { data } = await axios.post(
+      "https://food-backend-zeta.vercel.app/payment/payment",
+      { amount: amount }
     );
     setShowModal(false);
     // console.log(data);
@@ -123,19 +122,19 @@ function Cart() {
 
     let orderDetail = {};
     orderDetail.FoodID = Cart;
-    orderDetail.PaymentMethod = CODPayment
-    orderDetail.paymentInfo = CODPaymentStatus
+    orderDetail.PaymentMethod = CODPayment;
+    orderDetail.paymentInfo = CODPaymentStatus;
     // orderDetail.totalPrice = amount;
     orderDetail.user = auth.user;
     orderDetail.userID = auth.user._id;
     // setCashLoad(true);
     await axios.post(
       "https://food-backend-zeta.vercel.app/order/order/new",
-      { orderDetail,amount:amount },
+      { orderDetail, amount: amount },
       {
         headers: {
           Authorization: JSON.parse(localStorage.getItem("userID")).token,
-        }
+        },
       }
     );
     setCashLoad(false);
@@ -146,179 +145,190 @@ function Cart() {
   };
 
   return (
-    <>
-      <div className="checkout-modal">
-        <h2>Checkout Modal</h2> <br />
-        <Link
-          style={{
-            marginLeft: "auto",
-            marginRight: "2rem",
-            textDecoration: "auto",
-            fontSize: "20px",
-          }}
-          to={"/user/myOrder"}
-        >
-          My order
-        </Link>
-        <div className="cart_container">
-          {Cart.length > 0 ? (
-            Cart.map((data) => {
-              return (
-                <div key={data._id} className="checkout-modal_list">
-                  <div className="checkout-modal_list-item">
-                    <div>
-                      <img
-                        className="img-cart"
-                        alt={data.title}
-                        src={data.image}
-                      />
-                    </div>
-
-                    <div className="information">
-                      <h4>
-                        {data.title} <br /> Rs. {data.price}
-                      </h4>
-                    </div>
-
-                    <div className=" cart-addon cart-addon__modal">
-                      <button onClick={() => changeQty(data._id, data.qty - 1)}>
-                        -
-                      </button>
-                      <span className="counter">{data.qty}</span>
-                      <button onClick={() => changeQty(data._id, data.qty + 1)}>
-                        +
-                      </button>
-                      <button
-                        style={{ fontSize: "18.1px" }}
-                        className="cart-add"
-                        onClick={() =>
-                          dispatch({
-                            type: "REMOVE_CART",
-                            payload: {
-                              _id: data._id,
-                            },
-                          }) & toast.success("Remove from cart")
-                        }
-                      >
-                        <RiDeleteBin5Line />{" "}
-                      </button>
-                    </div>
+    <div className="checkout-modal">
+      <h2>Checkout Modal</h2> <br />
+      <Link
+        style={{
+          marginLeft: "auto",
+          marginRight: "2rem",
+          textDecoration: "auto",
+          fontSize: "20px",
+        }}
+        to={"/user/myOrder"}
+      >
+        My order
+      </Link>
+      <div className="cart_container">
+        {Cart.length > 0 ? (
+          Cart.map((data) => {
+            return (
+              <div key={data._id} className="checkout-modal_list">
+                <div className="checkout-modal_list-item">
+                  <div>
+                    <img
+                      className="img-cart"
+                      alt={data.title}
+                      src={data.image}
+                    />
                   </div>
-                </div>
-              );
-            })
-          ) : (
-            <div className="empty-cart">please add something in your cart</div>
-          )}
-        </div>
-        <hr />
-        {auth.user ?
-         (
-          <div className="total_amount">
-            <div>
-              <h4>Total Items: {Cart.length} </h4>
-              <h4>Total Amount: {amount}/- INR </h4>
-              <small>Charges for per order: {amount} + 20 = <b>{amount + 20}/- INR</b> </small>
-            </div>
 
-            { (
-              <div>
-                <button
-                  onClick={() =>
-                    dispatch({
-                      type: "CLEAR_ALL",
-                    }) & toast.success("All cleared from cart")
-                  }
-                >
-                  Clear all{" "}
-                </button>
-
-                <button onClick={() => setShowModal(true)}> Order Now</button>
-                {showModal && (
-                  <div className="payment-modal">
-                    <Reveal>
-                      <div className="payment-modal-content">
-                        <h2>
-                          Payment Method{" "}
-                          <button
-                            style={{
-                              margin: "2px",
-                              padding: "0px",
-                              backgroundColor: "transparent",
-                              color: "grey",
-                              fontSize: "25px",
-                            }}
-                            onClick={() => setShowModal(false)}
-                          >
-                            X
-                          </button>{" "}
-                        </h2>
-                        <button onClick={() => orderHandler(amount)}>
-                          {" "}
-                          {load ? <PaymentLoader /> : "online Bank/UPI"}{" "}
-                        </button>
-                        <p>Or</p>
-                        <button onClick={() => CashHandler(amount)}>
-                          {" "}
-                          {cashLoad ? <PaymentLoader /> : "Cash on delievery"}
-                        </button>
-                      </div>
-                    </Reveal>
+                  <div className="information">
+                    <h4>
+                      {data.title} <br /> Rs. {data.price}
+                    </h4>
                   </div>
-                )}
-              </div>
-            )}
-          </div>
-        ) : ( 
-          <>
-          <div>
-              <h4>Total Items: {Cart.length} </h4>
-              <h4>Total Amount: {amount}/- INR </h4>
-              <small>Charges for per order: {amount} + 20 = <b>{amount + 20}/- INR</b> </small>
-              
-            </div>
-            <div style={{float:"right"}} >
-            <button style={{float:"right",margin:"20px 5px"}} onClick={() => setPopUpModal(true)}> Order Now</button>
-            <button
-            style={{float:"right",margin:"20px 5px"}}
-                  onClick={() =>
-                    dispatch({
-                      type: "CLEAR_ALL",
-                    }) & toast.success("All cleared from cart")
-                  }
-                >
-                  Clear all{" "}
-                </button>
 
-                
-            </div>
-          {popUpModal && (
-          <div className="modal">
-            <Reveal>
-              <div className="modal-content">
-                
-                <div className="modal-content-form" >
-                  
-                <p style={{ margin: "auto", padding: "2rem", fontSize: "1.5rem" }}>
-                please <Link to={"/login"} style={{borderBottom:"1px solid blue"}} >Login</Link> to order !!
-              </p>
-                  {/* other input fields for item properties */}
-                  <div className="modal-buttons">
-                    
-                    <button onClick={() => closeModal()}>
-                      Cancel
+                  <div className=" cart-addon cart-addon__modal">
+                    <button onClick={() => changeQty(data._id, data.qty - 1)}>
+                      -
+                    </button>
+                    <span className="counter">{data.qty}</span>
+                    <button onClick={() => changeQty(data._id, data.qty + 1)}>
+                      +
+                    </button>
+                    <button
+                      style={{ fontSize: "18.1px" }}
+                      className="cart-add"
+                      onClick={() =>
+                        dispatch({
+                          type: "REMOVE_CART",
+                          payload: {
+                            _id: data._id,
+                          },
+                        }) & toast.success("Remove from cart")
+                      }
+                    >
+                      <RiDeleteBin5Line />{" "}
                     </button>
                   </div>
                 </div>
               </div>
-            </Reveal>
-          </div>
-        )}
-          </>
-          
+            );
+          })
+        ) : (
+          <div className="empty-cart">please add something in your cart</div>
         )}
       </div>
-    </>
+      <hr />
+      {auth.user ? (
+        <div className="total_amount">
+          <div>
+            <h4>Total Items: {Cart.length} </h4>
+            <h4>Total Amount: {amount}/- INR </h4>
+            <small>
+              Charges for per order: {amount} + 20 = <b>{amount + 20}/- INR</b>{" "}
+            </small>
+          </div>
+
+          {
+            <div>
+              <button
+                onClick={() =>
+                  dispatch({
+                    type: "CLEAR_ALL",
+                  }) & toast.success("All cleared from cart")
+                }
+              >
+                Clear all{" "}
+              </button>
+
+              <button onClick={() => setShowModal(true)}> Order Now</button>
+              {showModal && (
+                <div className="payment-modal">
+                  <Reveal>
+                    <div className="payment-modal-content">
+                      <h2>
+                        Payment Method{" "}
+                        <button
+                          style={{
+                            margin: "2px",
+                            padding: "0px",
+                            backgroundColor: "transparent",
+                            color: "grey",
+                            fontSize: "25px",
+                          }}
+                          onClick={() => setShowModal(false)}
+                        >
+                          X
+                        </button>{" "}
+                      </h2>
+                      <button onClick={() => orderHandler(amount)}>
+                        {" "}
+                        {load ? <PaymentLoader /> : "online Bank/UPI"}{" "}
+                      </button>
+                      <p>Or</p>
+                      <button onClick={() => CashHandler(amount)}>
+                        {" "}
+                        {cashLoad ? <PaymentLoader /> : "Cash on delievery"}
+                      </button>
+                    </div>
+                  </Reveal>
+                </div>
+              )}
+            </div>
+          }
+        </div>
+      ) : (
+        <div>
+          <div>
+            <h4>Total Items: {Cart.length} </h4>
+            <h4>Total Amount: {amount}/- INR </h4>
+            <small>
+              Charges for per order: {amount} + 20 = <b>{amount + 20}/- INR</b>{" "}
+            </small>
+          </div>
+          <div style={{ float: "right" }}>
+            <button
+              style={{ float: "right", margin: "20px 5px" }}
+              onClick={() => setPopUpModal(true)}
+            >
+              {" "}
+              Order Now
+            </button>
+            <button
+              style={{ float: "right", margin: "20px 5px" }}
+              onClick={() =>
+                dispatch({
+                  type: "CLEAR_ALL",
+                }) & toast.success("All cleared from cart")
+              }
+            >
+              Clear all{" "}
+            </button>
+          </div>
+          {popUpModal && (
+            <div className="modal">
+              <Reveal>
+                <div className="modal-content">
+                  <div className="modal-content-form">
+                    <p
+                      style={{
+                        margin: "auto",
+                        padding: "2rem",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      please{" "}
+                      <Link
+                        to={"/login"}
+                        style={{ borderBottom: "1px solid blue" }}
+                      >
+                        Login
+                      </Link>{" "}
+                      to order !!
+                    </p>
+                    {/* other input fields for item properties */}
+                    <div className="modal-buttons">
+                      <button onClick={() => closeModal()}>Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 

@@ -86,7 +86,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-   <>
+  
    
     <div
     className="admin-dashboard"
@@ -165,7 +165,7 @@ const Dashboard = () => {
       </div>
      
     </div>
-   </>
+   
   );
 };
 

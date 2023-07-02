@@ -22,8 +22,8 @@ const Private = () => {
             setOk(false)
         }
       }
-      if(auth?.token)authCheck()
-    }, [auth?.token])
+      if(auth.token)authCheck()
+    }, [auth.token])
     
   return ok ? <Outlet/> : <Spiner/>
 }

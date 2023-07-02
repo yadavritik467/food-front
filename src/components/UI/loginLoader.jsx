@@ -3,14 +3,12 @@ import "./Loader.css";
 
 function LoginLoader(){
   
-  return (
-    <>
-      
+  return (  
       <div className="loader-1">
         <div className="inner-loader-1"></div>
       </div>
       
-    </>
+    
   );
 };
 

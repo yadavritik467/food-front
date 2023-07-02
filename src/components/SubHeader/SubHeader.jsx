@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 
 const SubHeader = ( { filterFood }) => {
   return (
-    <>
+    
       <div className="container ">
         <div className=" nav-list">
          
@@ -49,7 +49,7 @@ const SubHeader = ( { filterFood }) => {
           </button>
         </div>
       </div>
-    </>
+    
   );
 };
 

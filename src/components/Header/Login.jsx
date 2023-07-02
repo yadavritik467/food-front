@@ -66,10 +66,7 @@ function Login({ dark }) {
      
     }
   };
-  return (
-    <>
-   
-    
+  return (  
    
     <div
       className={`modal_background ${
@@ -112,7 +109,7 @@ function Login({ dark }) {
         </p>
       </Form>
     </div>
-    </>
+  
   );
 }
 

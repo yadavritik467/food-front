@@ -1,5 +1,5 @@
-import React from "react";
-import { GoDashboard } from "react-icons/go";
+import React, { Fragment } from "react";
+import { AiOutlineDashboard } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
 // import { BsBarChartFill } from "react-icons/bs";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
@@ -10,17 +10,14 @@ import { useAuth } from "../context/auth";
 
 const SideNav = () => {
   const [auth] = useAuth();
-  
-
- 
 
   return (
-    <>
+    <Fragment>
       {/* {load && <Loader />} */}
       {auth.user.role === "admin" && (
         <div className="side-nav">
           <a style={{color:"white"}} href="#dashboard">
-            <GoDashboard /> <br />
+            <AiOutlineDashboard /> <br />
             Dashboard
           </a>
           {/* <a style={{color:"white"}} href="#payment">
@@ -41,7 +38,7 @@ const SideNav = () => {
           </a>
         </div>
       )}
-    </>
+    </Fragment>
   );
 };
 

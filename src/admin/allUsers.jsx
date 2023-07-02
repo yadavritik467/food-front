@@ -73,7 +73,7 @@ const AllUsers = () => {
   };
 
   return (
-    <  >
+    <div>
     {/* {load && <Loader/>} */}
       <div id="user" style={{borderTop:"1px solid black", overflowX:"scroll"}} >
         {/* <SideNav /> */}
@@ -125,7 +125,7 @@ const AllUsers = () => {
         </div>)}
         
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { toast } from "react-hot-toast";
 import { BsFillCartCheckFill } from "react-icons/bs";
@@ -48,7 +48,7 @@ const navigate = useNavigate()
   // console.log(auth.user);
 
   return (
-    <>
+    
       <div
         className="navbar sticky-top"
         expand="lg"
@@ -109,7 +109,7 @@ const navigate = useNavigate()
           </Link>
 
           {auth.user ? (
-            <>
+            <Fragment>
               {(auth.user.role !== "admin") ? (
                 <BiLogOut
                   onClick={logOut}
@@ -120,7 +120,7 @@ const navigate = useNavigate()
                   }}
                 />
               ) : (
-                <>
+                <Fragment>
                  <Link style={{textDecoration:"none"}} to={"/admin-dashboard"}> <MdDashboardCustomize
                     style={{
                       fontSize: "30px",
@@ -136,9 +136,9 @@ const navigate = useNavigate()
                     cursor: "pointer",
                   }}
                 />
-                </>
+                </Fragment>
               )}
-            </>
+            </Fragment>
           ) : (
             <Link to={"/login"} className="btn-link link-login  ">
               Login
@@ -151,7 +151,7 @@ const navigate = useNavigate()
           </Link>
         </div>
       </div>
-    </>
+    
   );
 };
 

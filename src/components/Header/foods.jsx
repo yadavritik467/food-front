@@ -22,7 +22,8 @@ const Foods = ({ data, state, dark ,setDark }) => {
       <div className={`item-card ${!dark ? "item-card":"item-card_1"}`}>
         <div className="text-center">
 
-        <Reveal>  <img className="img-fluid" src={data.image.url} alt={data.title} /></Reveal>
+        <Reveal> 
+           <img className="img-fluid" src={data.image.url} alt={data.title} /></Reveal>
         </div>
 
         <div className="item-card-info">
@@ -35,7 +36,7 @@ const Foods = ({ data, state, dark ,setDark }) => {
         </div>
 
         {Cart.some((p) => p._id === data._id) ? (
-          <>
+          
            
             <div className="btn-cart">
               <button
@@ -55,9 +56,9 @@ const Foods = ({ data, state, dark ,setDark }) => {
                 Remove item <RiDeleteBin5Line />{" "}
               </button>
             </div>
-          </>
+          
         ) : (
-          <>
+          
            
             <div className="btn-cart">
               <button
@@ -79,7 +80,7 @@ const Foods = ({ data, state, dark ,setDark }) => {
                 Add to Cart <BsFillCartCheckFill />
               </button>
             </div>
-          </>
+          
         )}
       </div>
     // </Reveal>

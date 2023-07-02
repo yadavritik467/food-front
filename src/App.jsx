@@ -57,7 +57,7 @@ function App({ state }) {
   // window.addEventListener("contextmenu", (e) => e.preventDefault())    //---------- " this event listener is for preventing inspection of right click in browser "  uncomment it later after completeing this project..
 
   return (
-    <>
+    <React.Fragment>
       <Router>
         <div className={`App ${!dark ? "App" : "App_1"}`}>
           <Navbar
@@ -81,10 +81,10 @@ function App({ state }) {
               {/* -----------------For admin-----------------------   */}
 
               {auth.user && (
-                <>
+                <React.Fragment>
                   {" "}
                   {auth.user.role === "admin" && (
-                    <>
+                    <React.Fragment>
                       <Route
                         path="/admin-dashboard"
                         element={<Dashboard dark={dark} />}
@@ -109,14 +109,14 @@ function App({ state }) {
                         path="/admin-dashboard/delieverOrder"
                         element={<DelieverOrder dark={dark} />}
                       />
-                    </>
+                    </React.Fragment>
                   )}
                   <Route
                     path="/user/paymentSuccess"
                     element={<PaymentSuccess />}
                   />
                   <Route path="/user/myOrder" element={<MayOrder />} />
-                </>
+                </React.Fragment>
               )}
             </Route>
 
@@ -128,7 +128,7 @@ function App({ state }) {
           <Footer />
         </div>
       </Router>
-    </>
+    </React.Fragment>
   );
 }
 

@@ -67,7 +67,7 @@ const DelieverOrder = () => {
 
 
   return (
- <>
+ <div>
  <div style={{ height: "74vh", overflowY: "scroll",userSelect:"text" }}>
       {" "}
       <br />
@@ -97,11 +97,11 @@ const DelieverOrder = () => {
       />{" "}
       <br /> <br /> <br />
       {/* {myOrder.length > 0 ? ( */}
-        <>
+        <div>
           {Order().map((m) => {
             return (  
                 <div key={m._id}>
-                  {m.OrderStatus === "delievered" && ( <>
+                  {m.OrderStatus === "delievered" && ( <div>
                     <br />
                  <button
                   onClick={() => deleteOrder(m._id)}
@@ -191,16 +191,16 @@ const DelieverOrder = () => {
                 })}
                
                 <br />
-                  </>)}
+                  </div>)}
                 
               </div>
             );
           })}
-        </>
+        </div>
      
     </div>
     
- </>
+ </div>
   );
 };
 

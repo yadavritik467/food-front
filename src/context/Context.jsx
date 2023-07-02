@@ -55,12 +55,12 @@ const Context = ({ children }) => {
     localStorage.setItem("addToCart", JSON.stringify(state.Cart));
   }, [state.Cart]);
   return (
-    <>
+    
       <Cart.Provider value={{ state, dispatch, searchState, searchDispatch }}>
         {load && <Loader />}
         {children}
       </Cart.Provider>
-    </>
+    
   );
 };
 
