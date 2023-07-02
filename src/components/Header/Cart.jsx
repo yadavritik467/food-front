@@ -17,6 +17,7 @@ function Cart() {
   const [CODPaymentStatus] = useState("unpaid");
   const [onlinePaymentStatus] = useState("paid");
   const [showModal, setShowModal] = useState(false);
+  const [popUpModal, setPopUpModal] = useState(false);
   const [auth] = useAuth();
   const navigate = useNavigate();
 
@@ -34,6 +35,17 @@ function Cart() {
         qty,
       },
     });
+  };
+
+  // account modal
+  const openModal = () => {
+    setPopUpModal(true);
+    
+    
+  };
+  
+  const closeModal = () => {
+    setPopUpModal(false);
   };
 
   useEffect(() => {
@@ -200,7 +212,8 @@ function Cart() {
           )}
         </div>
         <hr />
-        {auth.user ? (
+        {auth.user ?
+         (
           <div className="total_amount">
             <div>
               <h4>Total Items: {Cart.length} </h4>
@@ -208,7 +221,7 @@ function Cart() {
               <small>Charges for per order: {amount} + 20 = <b>{amount + 20}/- INR</b> </small>
             </div>
 
-            {Cart.length > 0 && (
+            { (
               <div>
                 <button
                   onClick={() =>
@@ -256,10 +269,53 @@ function Cart() {
               </div>
             )}
           </div>
-        ) : (
-          <p style={{ margin: "auto", padding: "2rem", fontSize: "1.5rem" }}>
-            please login to order
-          </p>
+        ) : ( 
+          <>
+          <div>
+              <h4>Total Items: {Cart.length} </h4>
+              <h4>Total Amount: {amount}/- INR </h4>
+              <small>Charges for per order: {amount} + 20 = <b>{amount + 20}/- INR</b> </small>
+              
+            </div>
+            <div style={{float:"right"}} >
+            <button style={{float:"right",margin:"20px 5px"}} onClick={() => setPopUpModal(true)}> Order Now</button>
+            <button
+            style={{float:"right",margin:"20px 5px"}}
+                  onClick={() =>
+                    dispatch({
+                      type: "CLEAR_ALL",
+                    }) & toast.success("All cleared from cart")
+                  }
+                >
+                  Clear all{" "}
+                </button>
+
+                
+            </div>
+          {popUpModal && (
+          <div className="modal">
+            <Reveal>
+              <div className="modal-content">
+                
+                <div className="modal-content-form" >
+                  
+                <p style={{ margin: "auto", padding: "2rem", fontSize: "1.5rem" }}>
+                please <Link to={"/login"} style={{borderBottom:"1px solid blue"}} >Login</Link> to order !!
+              </p>
+                  {/* other input fields for item properties */}
+                  <div className="modal-buttons">
+                    
+                    <button onClick={() => closeModal()}>
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        )}
+          </>
+          
         )}
       </div>
     </>
